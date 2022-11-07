@@ -27,9 +27,14 @@
         </div>
     </div>
 </nav>
+<br>
+<br>
 
-<br>
-<br>
+<div th:if=${session.msg}>
+    <div class="alert alert-danger text-center" role="alert" th:text="${session.msg}">
+    </div>
+    <th:block th:text="${#session.removeAttribute('msg')}"></th:block>
+</div>
 
 <div class="container" >
     <div class="row">
@@ -39,15 +44,15 @@
                 <form th:action="@{/login}" method="post" th:object="${user}">
 
                     <!-- error message -->
-                    <div th:if="${param.error}">
+                   <!-- <div th:if="${param.error}">
                         <div class="alert alert-danger">Invalid username or
                             password.</div>
                     </div>
 
-                    <!-- logout message -->
+                    &lt;!&ndash; logout message &ndash;&gt;
                     <div th:if="${param.logout}">
                         <div class="alert alert-info">You have been logged out.</div>
-                    </div>
+                    </div>-->
 
                     <div class="form-group">
                         <label class="control-label" for="email"> Email : </label>

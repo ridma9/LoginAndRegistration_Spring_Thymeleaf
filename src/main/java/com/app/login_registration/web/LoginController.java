@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -28,7 +29,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String registerUserAccount(@ModelAttribute("user") UserRegistrationDto userRegistrationDto){
+    public String registerUserAccount(@ModelAttribute("user") UserRegistrationDto userRegistrationDto, HttpSession session){
         List<User> userList = userService.findAll();
 
         for (User user :userList) {
@@ -37,7 +38,8 @@ public class LoginController {
                 return "index";
             }
         }
-        return "User Not Found";
+        session.setAttribute("msg", "Invalid Credentials.!");
+        return "redirect:/login";
 
     }
 }
